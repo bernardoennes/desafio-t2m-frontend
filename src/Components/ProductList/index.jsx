@@ -3,13 +3,17 @@ import styles from "./styles.module.css";
 import api from "../../Service";
 import ProductCard from "../ProductCard"; 
 
-export default function ProductList({ setProdutoSelecionado, setView }) {
+export default function ProductList() {
   const [produtos, setProdutos] = useState([]);
 
-  useEffect(() => {
+  const fetchProdutos = () => {
     api.get("/estoque")
       .then((res) => setProdutos(res.data))
       .catch((err) => console.error("Erro ao buscar produtos:", err));
+  };
+
+  useEffect(() => {
+    fetchProdutos();
   }, []);
 
   return (
@@ -20,10 +24,7 @@ export default function ProductList({ setProdutoSelecionado, setView }) {
           <ProductCard
             key={i}
             produto={produto}
-            onClick={() => {
-              setProdutoSelecionado(produto);
-              setView("atualizar");
-            }}
+            onDelete={fetchProdutos}
           />
         ))}
       </div>

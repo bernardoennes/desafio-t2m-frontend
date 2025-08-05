@@ -2,7 +2,7 @@ import { useState } from "react";
 import styles from "./styles.module.css";
 import api from "../../Service";
 
-export default function ProductForm({ isUpdate = false, produto = {}, onFinish }) {
+export default function ProductForm({ isUpdate = false, produto = {}}) {
   const [name, setName] = useState(produto.name || "");
   const [quantity, setQuantity] = useState(produto.quantity || "");
   const [barcode, setBarcode] = useState(produto.barcode || "");
