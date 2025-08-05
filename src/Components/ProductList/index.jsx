@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import api from "../../Service";
+import ProductCard from "../ProductCard"; 
 
 export default function ProductList({ setProdutoSelecionado, setView }) {
   const [produtos, setProdutos] = useState([]);
@@ -14,21 +15,18 @@ export default function ProductList({ setProdutoSelecionado, setView }) {
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Produtos Cadastrados</h2>
-      <ul className={styles.list}>
+      <div className={styles.cardList}>
         {produtos.map((produto, i) => (
-          <li
+          <ProductCard
             key={i}
-            className={styles.item}
+            produto={produto}
             onClick={() => {
               setProdutoSelecionado(produto);
               setView("atualizar");
             }}
-          >
-            <span className={styles.nome}>{produto.name}</span>
-            <span className={styles.quantidade}>{produto.quantity}</span>
-          </li>
+          />
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

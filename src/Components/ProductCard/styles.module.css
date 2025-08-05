@@ -1,0 +1,88 @@
+.card {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 12px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s, border 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.02);
+}
+
+/* Dinâmica de cor baseada no stockLevel */
+.critico {
+  border-color: #e63946;
+}
+
+.baixo {
+  border-color: #f4a261;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.name {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.quantity {
+  font-size: 1rem;
+  color: #555;
+}
+
+.description {
+  margin: 8px 0;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.footer {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.barcode {
+  font-style: italic;
+}
+
+.price {
+  font-weight: bold;
+  color: #2a9d8f;
+}
+
+.alert {
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 0.85rem;
+  margin-top: 6px;
+}
+
+.criticoAlert {
+  background-color: #ffcccc;
+  color: #b00020;
+}
+
+.baixoAlert {
+  background-color: #fff3cd;
+  color: #856404;
+}
