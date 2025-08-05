@@ -1,0 +1,30 @@
+.container {
+  padding: 1rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  color: #00a89c;
+  margin-bottom: 1rem;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.name {
+  font-weight: bold;
+}
+
+.quantity {
+  color: #00a89c;
+  font-weight: bold;
+}
