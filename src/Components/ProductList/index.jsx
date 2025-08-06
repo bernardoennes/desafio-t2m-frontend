@@ -2,61 +2,66 @@ import { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import api from "../../Service";
 import ProductCard from "../ProductCard";
+import Loading from "../Loading";
 
 export default function ProductList() {
   const [produtos, setProdutos] = useState([]);
-  const [paginaAtual, setPaginaAtual] = useState(1);
-  const produtosPorPagina = 10;
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const productsPerPage = 10;
 
   const fetchProdutos = () => {
+    setLoading(true);
     api.get("/estoque")
       .then((res) => setProdutos(res.data))
-      .catch((err) => console.error("Erro ao buscar produtos:", err));
+      .catch((err) => console.error("Erro ao buscar produtos:", err))
+      .finally(() => setLoading(false));
   };
 
   useEffect(() => {
     fetchProdutos();
   }, []);
 
-  // Cálculo para paginação
-  const indexInicial = (paginaAtual - 1) * produtosPorPagina;
-  const indexFinal = indexInicial + produtosPorPagina;
-  const produtosPaginados = produtos.slice(indexInicial, indexFinal);
-  const totalPaginas = Math.ceil(produtos.length / produtosPorPagina);
+  const initialIndex = (page - 1) * productsPerPage;
+  const finalIndex = initialIndex + productsPerPage;
+  const productsInPage = produtos.slice(initialIndex, finalIndex);
+  const totalPages = Math.ceil(produtos.length / productsPerPage);
 
-  const mudarPagina = (novaPagina) => {
-    if (novaPagina < 1 || novaPagina > totalPaginas) return;
-    setPaginaAtual(novaPagina);
+  const changePage = (newPage) => {
+    if (newPage < 1 || newPage > totalPages) return;
+    setPage(newPage);
   };
+
+  if (loading) return <Loading />;
 
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Produtos Cadastrados</h2>
 
       <div className={styles.cardList}>
-        {produtosPaginados.map((produto, i) => (
+        {productsInPage.map((produto, i) => (
           <ProductCard key={i} produto={produto} onDelete={fetchProdutos} />
         ))}
       </div>
 
-      {totalPaginas > 1 && (
+      {totalPages > 1 && (
         <div className={styles.pagination}>
           <button
             className={styles.pageButton}
-            onClick={() => mudarPagina(paginaAtual - 1)}
-            disabled={paginaAtual === 1}
+            onClick={() => changePage(page - 1)}
+            disabled={page === 1}
           >
             ⬅
           </button>
 
           <span className={styles.pageInfo}>
-            Página {paginaAtual} de {totalPaginas}
+            Página {page} de {totalPages}
           </span>
 
           <button
             className={styles.pageButton}
-            onClick={() => mudarPagina(paginaAtual + 1)}
-            disabled={paginaAtual === totalPaginas}
+            onClick={() => changePage(page + 1)}
+            disabled={page === totalPages}
           >
             ➡
           </button>
@@ -65,3 +70,4 @@ export default function ProductList() {
     </div>
   );
 }
+
